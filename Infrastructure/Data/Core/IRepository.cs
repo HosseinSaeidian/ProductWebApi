@@ -24,6 +24,7 @@ namespace SessionNine.Infrastructure.Data.Core
         Task<bool> ExistAsync<Tvalue>(Expression<Func<T, Tvalue>> expression, Tvalue value);
 
         Task UpdateAsync(T entity);
+        Task DeleteAsync(T entity);
 
         Task<bool> ExistWithIdAsync(key id);
 

@@ -36,6 +36,13 @@ namespace SessionNine.Infrastructure.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+
+        public async Task DeleteAsync(T entity)
+        {
+            _set.Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<bool> ExistAsync<Tvalue>(System.Linq.Expressions.Expression<Func<T, Tvalue>> expression, Tvalue value)
         {
             return await _set.AnyAsync(a => expression.Compile()(a).Equals(value));

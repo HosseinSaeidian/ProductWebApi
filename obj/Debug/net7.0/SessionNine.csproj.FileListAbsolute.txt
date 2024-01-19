@@ -154,3 +154,4 @@ F:\ASP . Net\Code\SessionNine\obj\Debug\net7.0\refint\SessionNine.dll
 F:\ASP . Net\Code\SessionNine\obj\Debug\net7.0\SessionNine.pdb
 F:\ASP . Net\Code\SessionNine\obj\Debug\net7.0\SessionNine.genruntimeconfig.cache
 F:\ASP . Net\Code\SessionNine\obj\Debug\net7.0\ref\SessionNine.dll
+F:\ASP . Net\Code\SessionNine\obj\Debug\net7.0\SessionNine.sourcelink.json

@@ -76,12 +76,42 @@ namespace SessionNine.Controllers
                 await _repository.UpdateAsync(productMapped);
                 var showProduct = _mapper.Map<ShowProductDto>(productMapped);
                 return Ok(showProduct);
+
             }
             catch (System.Exception)
             {
                 return BadRequest("Your Id is invalid or another reson");
             }
+        }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProductAsync(int id)
+        {
+            try
+            {
+                #region Code 
+
+                var product = await _repository.GetValueWithId(id);
+
+                if (product == null)
+                {
+                    return BadRequest("your Id is inValid");
+                }
+                else
+                {
+
+                    await _repository.DeleteAsync(product);
+                    return Ok("Your product deleted succesfully");
+
+                }
+
+                #endregion
+
+            }
+            catch (System.Exception)
+            {
+                return NotFound("Server can not handel Error , try later");
+            }
 
         }
 
