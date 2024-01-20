@@ -17,6 +17,7 @@ namespace SessionNine.Infrastructure.Data.Core
         Task AddAsync(T entity);
 
         Task<IEnumerable<T>> GetValuesAll();
+        Task<IEnumerable<T>> GetWithFillter(Expression<Func<T , bool>> predicate);
 
         Task<T?> GetValueWithId(key id);
 

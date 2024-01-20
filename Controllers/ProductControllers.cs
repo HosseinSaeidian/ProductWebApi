@@ -41,7 +41,7 @@ namespace SessionNine.Controllers
 
 
         [HttpGet("GiveAllProduct")]
-        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GiveProductAsync()
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetProductAsync()
         {
             var product = await _repository.GetValuesAll();
             var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
@@ -49,8 +49,17 @@ namespace SessionNine.Controllers
         }
 
 
+        [HttpGet("filter/price/{minprice}")]
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetProductFillterAsync(int minprice)
+        {
+            var product = await _repository.GetWithFillter(a => a.Price >= minprice);
+            var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
+            return Ok(showProduct);
+        }
+
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GiveProductWithIdAsync([FromRoute] int id)
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetProductWithIdAsync([FromRoute] int id)
         {
             var product = await _repository.GetValueWithId(id);
 

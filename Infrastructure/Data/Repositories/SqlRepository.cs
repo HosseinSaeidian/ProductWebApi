@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -74,6 +75,12 @@ namespace SessionNine.Infrastructure.Data.Repositories
         }
 
         public async Task<T?> GetValueWithId(key id) => await _set.FindAsync(id);
+
+        public async Task<IEnumerable<T>> GetWithFillter(Expression<Func<T, bool>> predicate)
+        {
+            var result = _set.Where(predicate);
+            return await result.ToListAsync(); 
+        }
 
         public async Task UpdateAsync(T entity)
         {
