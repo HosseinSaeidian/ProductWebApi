@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\ASP . Net\\Code\\SessionNine\\SessionNine.csproj": {}
+    "F:\\ASP . Net\\Code\\ProductWebApi\\SessionNine.csproj": {}
   },
   "projects": {
-    "F:\\ASP . Net\\Code\\SessionNine\\SessionNine.csproj": {
+    "F:\\ASP . Net\\Code\\ProductWebApi\\SessionNine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\ASP . Net\\Code\\SessionNine\\SessionNine.csproj",
+        "projectUniqueName": "F:\\ASP . Net\\Code\\ProductWebApi\\SessionNine.csproj",
         "projectName": "SessionNine",
-        "projectPath": "F:\\ASP . Net\\Code\\SessionNine\\SessionNine.csproj",
+        "projectPath": "F:\\ASP . Net\\Code\\ProductWebApi\\SessionNine.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "F:\\ASP . Net\\Code\\SessionNine\\obj\\",
+        "outputPath": "F:\\ASP . Net\\Code\\ProductWebApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
