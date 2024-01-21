@@ -18,6 +18,7 @@ namespace SessionNine.Infrastructure.Data.Core
 
         Task<IEnumerable<T>> GetValuesAll();
         Task<IEnumerable<T>> GetWithFillter(Expression<Func<T , bool>> predicate);
+        Task<IEnumerable<T>> GetWithFillterExpressionTree(string predicate);
 
         Task<T?> GetValueWithId(key id);
 

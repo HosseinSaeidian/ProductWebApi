@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics.Arm;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SessionNine.Domains.Core;
 using SessionNine.Infrastructure.Data.Core;
+using System.Linq.Dynamic.Core;
+
 
 namespace SessionNine.Infrastructure.Data.Repositories
 {
@@ -79,7 +82,12 @@ namespace SessionNine.Infrastructure.Data.Repositories
         public async Task<IEnumerable<T>> GetWithFillter(Expression<Func<T, bool>> predicate)
         {
             var result = _set.Where(predicate);
-            return await result.ToListAsync(); 
+            return await result.ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetWithFillterExpressionTree(string predicate)
+        {
+           return await _set.Where(predicate).ToListAsync();
         }
 
         public async Task UpdateAsync(T entity)

@@ -8,6 +8,7 @@ using SessionNine.Application.Models;
 using SessionNine.Application.Models.Product;
 using SessionNine.Domains.Entity;
 using SessionNine.Infrastructure.Data.Core;
+using System.Linq.Dynamic.Core;
 
 namespace SessionNine.Controllers
 {
@@ -50,21 +51,14 @@ namespace SessionNine.Controllers
 
 
         [HttpGet("filter/price/minprice/{minprice}")]
-        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetFillterMinPriceAsync(int minprice)
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetFillterMinPriceAsync([FromRoute] int minprice)
         {
             try
             {
                 var product = await _repository.GetWithFillter(a => a.Price >= minprice);
+                var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
+                return Ok(showProduct);
 
-                if (product != null)
-                {
-                    var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
-                    return Ok(showProduct);
-                }
-                else
-                {
-                    return NotFound($"No products found within the price range of {minprice}");
-                }
             }
             catch (System.Exception)
             {
@@ -75,22 +69,15 @@ namespace SessionNine.Controllers
 
 
         [HttpGet("filter/price/maxprice/{maxprice}")]
-        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetFillterMaxPriceAsync(int maxprice)
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetFillterMaxPriceAsync([FromRoute] int maxprice)
         {
 
             try
             {
                 var product = await _repository.GetWithFillter(a => a.Price <= maxprice);
 
-                if (product != null)
-                {
-                    var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
-                    return Ok(showProduct);
-                }
-                else
-                {
-                    return NotFound($"No products found within the price range of {maxprice}");
-                }
+                var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
+                return Ok(showProduct);
 
 
             }
@@ -98,6 +85,17 @@ namespace SessionNine.Controllers
             {
                 return StatusCode(500, "Internal Server Error");
             }
+
+        }
+
+
+        [HttpGet("filterTree")]
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetFillterAsync([FromQuery] string filter)
+        {
+
+            var product = await _repository.GetWithFillterExpressionTree(filter);
+            var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
+            return Ok(showProduct);
 
         }
 
