@@ -49,12 +49,56 @@ namespace SessionNine.Controllers
         }
 
 
-        [HttpGet("filter/price/{minprice}")]
-        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetProductFillterAsync(int minprice)
+        [HttpGet("filter/price/minprice/{minprice}")]
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetFillterMinPriceAsync(int minprice)
         {
-            var product = await _repository.GetWithFillter(a => a.Price >= minprice);
-            var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
-            return Ok(showProduct);
+            try
+            {
+                var product = await _repository.GetWithFillter(a => a.Price >= minprice);
+
+                if (product != null)
+                {
+                    var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
+                    return Ok(showProduct);
+                }
+                else
+                {
+                    return NotFound($"No products found within the price range of {minprice}");
+                }
+            }
+            catch (System.Exception)
+            {
+
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+
+        [HttpGet("filter/price/maxprice/{maxprice}")]
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetFillterMaxPriceAsync(int maxprice)
+        {
+
+            try
+            {
+                var product = await _repository.GetWithFillter(a => a.Price <= maxprice);
+
+                if (product != null)
+                {
+                    var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
+                    return Ok(showProduct);
+                }
+                else
+                {
+                    return NotFound($"No products found within the price range of {maxprice}");
+                }
+
+
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
+
         }
 
 
