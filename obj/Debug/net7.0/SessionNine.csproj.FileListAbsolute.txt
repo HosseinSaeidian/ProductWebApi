@@ -234,3 +234,6 @@ F:\ASP . Net\Code\ProductWebApi\obj\Debug\net7.0\refint\SessionNine.dll
 F:\ASP . Net\Code\ProductWebApi\obj\Debug\net7.0\SessionNine.pdb
 F:\ASP . Net\Code\ProductWebApi\obj\Debug\net7.0\SessionNine.genruntimeconfig.cache
 F:\ASP . Net\Code\ProductWebApi\obj\Debug\net7.0\ref\SessionNine.dll
+F:\ASP . Net\Code\ProductWebApi\bin\Debug\net7.0\System.Linq.Dynamic.dll
+F:\ASP . Net\Code\ProductWebApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.DynamicLinq.dll
+F:\ASP . Net\Code\ProductWebApi\bin\Debug\net7.0\System.Linq.Dynamic.Core.dll
