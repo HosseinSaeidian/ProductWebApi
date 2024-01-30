@@ -89,14 +89,12 @@ namespace SessionNine.Controllers
         }
 
 
-        [HttpGet("filterTree")]
-        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetFillterAsync([FromQuery] string filter)
+        [HttpGet("filterDynamic")]
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetFillterAsync([FromQuery] string? filter)
         {
-
             var product = await _repository.GetWithFillterExpressionTree(filter);
             var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
             return Ok(showProduct);
-
         }
 
 
