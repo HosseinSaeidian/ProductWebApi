@@ -9,6 +9,8 @@ using SessionNine.Application.Models.Product;
 using SessionNine.Domains.Entity;
 using SessionNine.Infrastructure.Data.Core;
 using System.Linq.Dynamic.Core;
+using ProductWebApi.Application.Models.Product;
+using ProductWebApi.Infrastructure.Data.Services.Paging;
 
 namespace SessionNine.Controllers
 {
@@ -93,6 +95,43 @@ namespace SessionNine.Controllers
         public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetFillterAsync([FromQuery] string? filter)
         {
             var product = await _repository.GetWithFillterExpressionTree(filter);
+            var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
+            return Ok(showProduct);
+        }
+
+
+        [HttpGet("FillterWithPagingOne")]
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetPaginOneAsync([FromQuery] string? filtern, [FromQuery] int pageSize, [FromQuery] int pageIndex)
+        {
+            var product = await _repository.GetWithFillterAndPaging(filtern, pageSize, pageIndex);
+            var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
+            return Ok(showProduct);
+        }
+
+
+        [HttpGet("FillterWithPagingTwo")]
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetPagingTwoAsync([FromQuery] string? filter, [FromQuery] int? pageSize = 2, [FromQuery] int? pageIndex = 1)
+        {
+            var product = await _repository.GetWithFillterAndPaging(filter , pageSize.Value, pageIndex.Value);
+            var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
+            return Ok(showProduct);
+        }
+
+         [HttpGet("FillterWithPagingThree")]
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetPagingThreeAsync([FromQuery] ProductFillterDto fillter)
+        {
+            var product = await _repository.GetWithFillterAndPaging(fillter.Fillter , fillter.PageSize.Value , fillter.PageIndex.Value);
+            var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
+            return Ok(showProduct);
+        }
+
+
+         [HttpGet("FillterWithPaging")]
+        public async Task<ActionResult<IEnumerable<ShowProductDto>>> GetPagingFinnaly([FromQuery] ProductFillterDto fillter)
+        {
+            var paging = _mapper.Map<PagingParam>(fillter);
+
+            var product = await _repository.FillterAsync(fillter.Fillter , paging);
             var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
             return Ok(showProduct);
         }

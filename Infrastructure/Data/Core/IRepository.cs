@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using ProductWebApi.Infrastructure.Data.Services.Paging;
 using SessionNine.Domains.Core;
 
 namespace SessionNine.Infrastructure.Data.Core
@@ -17,8 +18,12 @@ namespace SessionNine.Infrastructure.Data.Core
         Task AddAsync(T entity);
 
         Task<IEnumerable<T>> GetValuesAll();
-        Task<IEnumerable<T>> GetWithFillter(Expression<Func<T , bool>> predicate);
+        Task<IEnumerable<T>> GetWithFillter(Expression<Func<T, bool>> predicate);
         Task<IEnumerable<T>> GetWithFillterExpressionTree(string predicate);
+        Task<IEnumerable<T>> GetWithFillterAndPaging(string predicate, int pageSize, int pageIndex);
+        Task<IEnumerable<T>> FillterAsync(string predicate , PagingParam? paging = null);
+
+
 
         Task<T?> GetValueWithId(key id);
 
