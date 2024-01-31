@@ -11,6 +11,7 @@ using SessionNine.Infrastructure.Data.Core;
 using System.Linq.Dynamic.Core;
 using ProductWebApi.Infrastructure.Data.Services;
 using ProductWebApi.Infrastructure.Data.Services.Paging;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace SessionNine.Infrastructure.Data.Repositories
@@ -74,24 +75,24 @@ namespace SessionNine.Infrastructure.Data.Repositories
 
         }
 
-        public async Task<IEnumerable<T>> FillterAsync(string predicate, PagingParam? paging = null)
+        public async Task<IEnumerable<T>> FillterAsync(string predicate, string? Sort =default , PagingParam? paging = null)
         {
-            // if (paging == null)
-            // {
-            //     paging = new PagingParam();
+            if (string.IsNullOrEmpty(Sort))
+            {
+                 return await 
+            _set
+            .Query(predicate)
+            .OrderBy(a => a.Id)
+            .Paging(paging)
+            .ToListAsync();
+            
+            }
 
-            // }
-
-            // return
-            // await _set
-            // .Query(predicate)
-            // .Skip(paging.PageSize * (paging.PageIndex - 1))
-            // .Take(paging.PageSize)
-            // .ToListAsync();
 
             return await 
             _set
             .Query(predicate)
+            .OrderBy(Sort)
             .Paging(paging)
             .ToListAsync();
 
@@ -99,44 +100,10 @@ namespace SessionNine.Infrastructure.Data.Repositories
 
         public async Task<IEnumerable<T>> GetValuesAll()
         {
-            return await _set.AsNoTracking().ToListAsync();
+           return await _set.ToListAsync();
         }
 
         public async Task<T?> GetValueWithId(key id) => await _set.FindAsync(id);
-
-        public async Task<IEnumerable<T>> GetWithFillter(Expression<Func<T, bool>> predicate)
-        {
-            return await _set.Where(predicate).ToListAsync();
-        }
-
-        public async Task<IEnumerable<T>> GetWithFillterAndPaging(string predicate, int pageSize, int pageIndex)
-        {
-            return await
-             _set
-            .Query(predicate)
-            .Skip((pageSize * (pageIndex - 1)))
-            .Skip(pageSize)
-            .ToListAsync();
-        }
-
-        public async Task<IEnumerable<T>> GetWithFillterExpressionTree(string? predicate)
-        {
-            #region Tip
-
-
-            // if (string.IsNullOrEmpty(predicate))
-            // {
-            //     return await _set.ToListAsync();
-            // }
-
-            // return await _set.Where(predicate).ToListAsync();
-
-
-
-            #endregion
-
-            return await _set.Query(predicate).ToListAsync();
-        }
 
         public async Task UpdateAsync(T entity)
         {

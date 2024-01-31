@@ -10,6 +10,7 @@ using SessionNine.Application.Models.Security;
 using SessionNine.Application.Services;
 using SessionNine.Domains.Entity;
 using SessionNine.Infrastructure.Data.Core;
+using SessionNine.Infrastructure.Data.Repositories;
 
 namespace SessionNine.Controllers
 {
@@ -54,13 +55,13 @@ namespace SessionNine.Controllers
             return Ok();
         }
 
-        [HttpGet("GiveListUser")]
-        public async Task<ActionResult<IEnumerable<ShowSecurityList>>> GiveUserList()
-        {
-            var list = await _repository.GetValuesAll();
-            var finnaly = _mapper.Map<IEnumerable<ShowSecurityList>>(list);
-            return Ok(finnaly);
-        }
+        // [HttpGet("GiveListUser")]
+        // public async Task<ActionResult<IEnumerable<ShowSecurityList>>> GiveUserList()
+        // {
+        //     // var list = await _repository.GetValuesAll();
+        //     // var finnaly = _mapper.Map<IEnumerable<ShowSecurityList>>(list);
+        //     // return Ok(finnaly);
+        // }
 
 
         #endregion
