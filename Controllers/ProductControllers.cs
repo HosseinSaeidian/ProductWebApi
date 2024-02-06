@@ -48,7 +48,7 @@ namespace SessionNine.Controllers
         {
             var paging = _mapper.Map<PagingParam>(dto);
 
-            var product = await _repository.FillterAsync(dto.Fillter, dto.Sort , paging);
+            var product = await _repository.FillterAsync(dto.Fillter, dto.Sort , paging , true);
             var showProduct = _mapper.Map<IEnumerable<ShowProductDto>>(product);
             return Ok(showProduct);
         }

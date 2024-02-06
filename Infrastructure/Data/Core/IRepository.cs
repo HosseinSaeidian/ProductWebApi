@@ -18,7 +18,7 @@ namespace SessionNine.Infrastructure.Data.Core
         Task AddAsync(T entity);
         Task<IEnumerable<T>> GetValuesAll();
 
-        Task<IEnumerable<T>> FillterAsync(string predicate, string? Sort = default, PagingParam? paging = null);
+        Task<IEnumerable<T>> FillterAsync(string predicate, string? Sort = default, PagingParam? paging = null , bool track = false);
 
         Task<T?> GetValueWithId(key id);
 

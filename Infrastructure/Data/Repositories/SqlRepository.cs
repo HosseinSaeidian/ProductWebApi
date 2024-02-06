@@ -75,32 +75,21 @@ namespace SessionNine.Infrastructure.Data.Repositories
 
         }
 
-        public async Task<IEnumerable<T>> FillterAsync(string predicate, string? Sort =default , PagingParam? paging = null)
+        public async Task<IEnumerable<T>> FillterAsync(string predicate, string? Sort = default, PagingParam? paging = null, bool track = false)
         {
-            if (string.IsNullOrEmpty(Sort))
-            {
-                 return await 
+            return await
             _set
-            .Query(predicate)
-            .OrderBy(a => a.Id)
-            .Paging(paging)
-            .ToListAsync();
-            
-            }
-
-
-            return await 
-            _set
-            .Query(predicate)
-            .OrderBy(Sort)
-            .Paging(paging)
+            .TrackingService(track)
+            .QueryService(predicate)
+            .OrderingSerivec(Sort)
+            .PagingService(paging)
             .ToListAsync();
 
         }
 
         public async Task<IEnumerable<T>> GetValuesAll()
         {
-           return await _set.ToListAsync();
+            return await _set.ToListAsync();
         }
 
         public async Task<T?> GetValueWithId(key id) => await _set.FindAsync(id);
