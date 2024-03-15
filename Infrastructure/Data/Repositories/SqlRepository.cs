@@ -84,7 +84,6 @@ namespace SessionNine.Infrastructure.Data.Repositories
             .OrderingSerivec(Sort)
             .PagingService(paging)
             .ToListAsync();
-
         }
 
         public async Task<IEnumerable<T>> GetValuesAll()
